@@ -23,12 +23,13 @@ class TodoListTest extends TestCase
         TodoList::factory($count)->create();
        
         //perform
-        $response = $this->getJson('/api/todo-list');        
-
+        $response = $this->getJson('/api/todo-list');   
+             
         //dd($response->json());
         //predict
         $response->assertStatus(200);
 
         $this->assertEquals($count, count($response->json()));
+
     }
 }

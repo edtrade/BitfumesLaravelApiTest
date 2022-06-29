@@ -18,8 +18,14 @@ use App\Http\Controllers\TodoListController;
 //     return $request->user();
 // });
 
-Route::get('todo-list',[TodoListController::class,'index'])->name('todo-list.index');
+Route::apiResource('todo-list',TodoListController::class);
 
-Route::get('todo-list/{todoList}',[TodoListController::class,'show'])->name('todo-list.show');
+// Route::get('todo-list',[TodoListController::class,'index'])->name('todo-list.index');
 
-Route::post('todo-list',[TodoListController::class,'store'])->name('todo-list.store');
+// Route::get('todo-list/{todoList}',[TodoListController::class,'show'])->name('todo-list.show');
+
+// Route::post('todo-list',[TodoListController::class,'store'])->name('todo-list.store');
+
+// Route::patch('todo-list/{todoList}',[TodoListController::class,'update'])->name('todo-list.update');
+
+// Route::delete('todo-list/{todoList}',[TodoListController::class,'destroy'])->name('todo-list.destroy');

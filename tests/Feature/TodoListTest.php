@@ -98,10 +98,47 @@ class TodoListTest extends TestCase
      * @return void
      * @test
      */
-    public function todo_list_name_is_required()
+    public function create_todo_list_name_is_required()
     {
         $response = $this->postJson(route('todo-list.store'))->assertUnprocessable();
 
         $response->assertJsonValidationErrors(['name']);
-    }     
+    }   
+
+    /**
+     * test can delete todo list
+     *
+     * @return void
+     * @test
+     */    
+    public function can_delete_a_todo_list()
+    {
+        $this->deleteJson(route('todo-list.destroy',$this->todoLists[0]->id))->assertOk();
+    }
+
+    /**
+     * test can update todo list
+     *
+     * @return void
+     * @test
+     */     
+    public function can_update_a_todo_list()
+    {
+        $name = 'Updated Name';
+        $this->patchJson(route('todo-list.update',$this->todoLists[0]->id),['name'=>$name])->assertOk();
+
+        $this->assertDatabaseHas('todo_lists',['name'=>$name]);
+
+    }
+    /**
+     * test can update todo list
+     *
+     * @return void
+     * @test
+     */     
+    public function update_todo_list_name_is_required()
+    {
+        $this->patchJson(route('todo-list.update',$this->todoLists[0]->id))->assertJsonValidationErrors(['name']);
+    }    
+    
 }

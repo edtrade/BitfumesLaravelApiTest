@@ -15,7 +15,7 @@ class TodoListTest extends TestCase
      * @return void
      * @test
      */
-    public function can_get_todo_list()
+    public function can_get_all_todo_list()
     {
 
         //prepare
@@ -23,13 +23,32 @@ class TodoListTest extends TestCase
         TodoList::factory($count)->create();
        
         //perform
-        $response = $this->getJson('/api/todo-list');   
-             
-        //dd($response->json());
+        $response = $this->getJson(route('todo-list.index'));   
+
         //predict
         $response->assertStatus(200);
 
         $this->assertEquals($count, count($response->json()));
 
     }
+
+    /**
+     * A basic feature test example.
+     *
+     * @return void
+     * @test
+     */
+    public function can_get_todo_list_by_id()
+    {
+        //prepare
+        $todoList = TodoList::factory()->create();
+
+        //perform
+        $response = $this->getJson(route('todo-list.show',$todoList->id));  
+
+        //predict
+        $response->assertStatus(200);
+
+        $this->assertEquals($todoList->name, $response->json()['name']);
+    }    
 }

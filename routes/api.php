@@ -18,4 +18,6 @@ use App\Http\Controllers\TodoListController;
 //     return $request->user();
 // });
 
-Route::get('todo-list',[TodoListController::class,'index']);
+Route::get('todo-list',[TodoListController::class,'index'])->name('todo-list.index');
+
+Route::get('todo-list/{todoList}',[TodoListController::class,'show'])->name('todo-list.show');

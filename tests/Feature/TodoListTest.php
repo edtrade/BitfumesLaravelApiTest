@@ -62,12 +62,11 @@ class TodoListTest extends TestCase
      * @return void
      * @test
      */
-    // public function check_todo_doesnt_exist()
-    // {
-    //     // 
-    //     $response = $this->getJson(route('todo-list.show',100))
-    //                 ->assertStatus(404);     
-    // } 
+    public function check_todo_doesnt_exist()
+    {
+        // 
+        $response = $this->getJson(route('todo-list.show',100))->assertNotFound();     
+    } 
 
     /**
      * test todo list store
@@ -79,7 +78,7 @@ class TodoListTest extends TestCase
     {
         //
         $name = "A Magical List";
-        
+
         //
         $response = $this->postJson(route('todo-list.store'),[
             'name' => $name
@@ -91,5 +90,18 @@ class TodoListTest extends TestCase
         $this->assertEquals($name,$response['name']);
 
         $this->assertDatabaseHas('todo_lists',['name'=>$name]);
-    }   
+    }
+
+    /**
+     * test todo list store requires a name
+     *
+     * @return void
+     * @test
+     */
+    public function todo_list_name_is_required()
+    {
+        $response = $this->postJson(route('todo-list.store'))->assertUnprocessable();
+
+        $response->assertJsonValidationErrors(['name']);
+    }     
 }

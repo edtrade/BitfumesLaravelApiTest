@@ -47,7 +47,8 @@ class TodoListTest extends TestCase
         $response = $this->getJson(route('todo-list.show',$todoList->id));  
 
         //predict
-        $response->assertStatus(200);
+        //$response->assertStatus(200); same as
+        $response->assertOk();
 
         $this->assertEquals($todoList->name, $response->json()['name']);
     }    

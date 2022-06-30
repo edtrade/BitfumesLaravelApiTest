@@ -21,6 +21,12 @@ class TaskController extends Controller
     }
 
     //
+    public function update(TaskStoreRequest $request, Task $task)
+    {
+        return $task->update($request->validated());
+    }
+
+    //
     public function destroy(TodoList $todoList, Task $task)
     {
         return $task->delete();

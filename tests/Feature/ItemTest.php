@@ -61,4 +61,23 @@ class ItemTest extends TestCase
 
         $this->assertDatabaseMissing('tasks',['name' => $task->name]);
     }
+
+    /**
+     * Update a task 
+     *
+     * @return void
+     * @test
+     */    
+    public function can_update_a_tasl()
+    {
+        $task = Task::factory()->create();
+
+        $name = 'New Magical Task';
+
+        $this->patchJson(route('task.update',$task->id),[
+            'name'  => $name
+        ])->assertOk();
+
+        $this->assertDatabaseHas('tasks',['name' => $name]);
+    }
 }

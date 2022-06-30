@@ -2,13 +2,11 @@
 
 namespace Tests\Feature;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use App\Models\TodoList;
+
 class TodoListTest extends TestCase
 {
-    use RefreshDatabase;
 
     private $count = 10;
     private $todoLists;

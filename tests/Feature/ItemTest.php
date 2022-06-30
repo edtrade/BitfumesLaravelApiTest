@@ -2,15 +2,12 @@
 
 namespace Tests\Feature;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use App\Models\Task;
 use App\Models\TodoList;
 
 class ItemTest extends TestCase
 {
-    use RefreshDatabase, WithFaker;
     /**
      * Get all the tasks 
      *
@@ -40,11 +37,12 @@ class ItemTest extends TestCase
     {
         $todoList = TodoList::factory()->create();
         $name = 'A Magical Task';
+        
         $response = $this->postJson(route('todo-list.task.store',$todoList->id),[
             'name'  =>  $name
         ])->assertCreated();
 
-        $this->assertDatabaseHas('tasks',['name' => $name]);
+        $this->assertDatabaseHas('tasks',['name' => $name, 'todo_list_id' => $todoList->id]);
     }
 
     /**
@@ -68,7 +66,7 @@ class ItemTest extends TestCase
      * @return void
      * @test
      */    
-    public function can_update_a_tasl()
+    public function can_update_a_task()
     {
         $task = Task::factory()->create();
 

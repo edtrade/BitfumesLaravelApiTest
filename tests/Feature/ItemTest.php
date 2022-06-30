@@ -10,7 +10,7 @@ use App\Models\TodoList;
 
 class ItemTest extends TestCase
 {
-    use RefreshDatabase;
+    use RefreshDatabase, WithFaker;
     /**
      * Get all the tasks 
      *
@@ -72,7 +72,7 @@ class ItemTest extends TestCase
     {
         $task = Task::factory()->create();
 
-        $name = 'New Magical Task';
+        $name = $this->faker->word;
 
         $this->patchJson(route('task.update',$task->id),[
             'name'  => $name
